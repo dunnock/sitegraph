@@ -2,11 +2,13 @@
 ## Table of Contents
 
 - [Folder Structure](#folder-structure)
+- [Prerequisites](#prerequisites)
+  - [npm install](#npm-install)
+  - [Enable flow type checking](enable-flow-type-checking)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
-  - [Enable flow type checking](#enable-flow-type-checking)
   - [npm run flow](#npm-run-flow)
 - [create-react-app](#create-react-app)
 
@@ -21,6 +23,27 @@ sitegraph/
   src/    -- sources
   types/  -- types for @flow checking
 ```
+
+## Prerequisites
+
+- node.js 4+
+- npm
+
+### `npm install`
+
+Please note, distribution includes 'canvas-node' module suitable for running jsdom tests (sigma.js functionality). This package requires some global libraries dependencies to compile, please refer to [canvas installation](https://github.com/Automattic/node-canvas#installation) page for setup instructions.
+
+### Enable flow type checking
+
+Application is built with flow type checking embedded. But it requires flow-typed installed globally:
+
+```
+npm install -g flow-typed
+flow-typed
+```
+
+### Tests require canvas
+
 
 ## Available Scripts
 
@@ -46,15 +69,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
-
-### Enable flow type checking
-
-Application is built with flow type checking embedded. But it requires flow-typed installed globally:
-
-```
-npm install -g flow-typed
-flow-typed
-```
 
 ### `npm run flow`
 
