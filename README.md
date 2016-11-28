@@ -42,8 +42,6 @@ npm install -g flow-typed
 flow-typed
 ```
 
-### Tests require canvas
-
 
 ## Available Scripts
 
