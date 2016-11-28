@@ -6,7 +6,7 @@
   - [npm start](#npm-start)
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
-  - [Enable flow type checking](#Enable-flow-type-checking)
+  - [Enable flow type checking](#enable-flow-type-checking)
   - [npm run flow](#npm-run-flow)
 - [create-react-app](#create-react-app)
 
