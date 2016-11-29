@@ -10,7 +10,10 @@
   - [npm test](#npm-test)
   - [npm run build](#npm-run-build)
   - [npm run flow](#npm-run-flow)
-- [create-react-app](#create-react-app)
+- [Usage](#usage)
+  - [Sigma component]
+  - 
+- [create-react-app](#create-react-app-regards)
 
 ## Folder Structure
 
@@ -41,7 +44,6 @@ Application is built with flow type checking embedded. But it requires flow-type
 npm install -g flow-typed
 flow-typed
 ```
-
 
 ## Available Scripts
 
@@ -74,7 +76,92 @@ Performs flow type check, highly recommended before starting build.
 Please note, all application custom types are stored in Component files (props and state descriptions) as well as under /types/ subdir.
 
 
-## create-react-app
+# Usage
+
+Sigma - React.JS flow-typed interface for Sigma js library - fastest opensource rendering engine for linked graphs.
+Sigma makes easy to publish networks on Web pages, and allows developers to integrate network exploration in rich Web applications.
+
+## Sigma component
+
+Sigma is the main component which reserves <div> area with a given style (default is full width, 500px height), 
+initializes renderer and camera in the given area and starts rendering graph.
+<Sigma> be composed with sigma sub-components using JSX syntax, e.g.:
+
+```
+    <Sigma renderer="webgl" style={{maxWidth:"inherit", height:"400px"}}
+           settings={{drawEdges:false}}
+           onOverNode={e => console.log("Mouse over node: " + e.data.node.label)}>
+           graph={{nodes:["id0", "id1"], edges:[{id:"e0",source:"id0",target:"id1"}]}}>
+      <RelativeSize initialSize={8}/>
+    </Sigma>
+```
+
+### Parameters:
+
+ - @style  CSS   CSS style description for main div holding graph, should be specified in React format
+ - @settings  Sigma$Settings     js object with sigma initialization options
+                as described on [sigma settings page](https://github.com/jacomyal/sigma.js/wiki/Settings)
+ - @renderer   string     can be "webgl" or "canvas"
+ - @graph     Sigma$Graph$Data   js object with array of nodes and edges used to initialize sigma
+ - @onClickNode  (e) => void     set sigma callback for "clickNode" event (see below)
+ - @onOverNode   (e) => void     set sigma callback for "overNode" event
+ - @onOutNode    (e) => void     set sigma callback for "outNode" event
+ - @onClickEdge  (e) => void     set sigma callback for "clickEdge" event
+ - @onOverEdge   (e) => void     set sigma callback for "overEdge" event
+ - @onOutEdge    (e) => void     set sigma callback for "outEdge" event
+
+### Callbacks:
+
+ Sigma callback receives [Sigma Event](https://github.com/jacomyal/sigma.js/wiki/Events-API)
+ with the following structure (see Sigma$Event type under /types/sigma.js):
+ ```
+  .data
+     .captor   -- information about event handler, for instance position on the page {clientX, clientY}
+     .node?     -- for node events is sigma node data
+     .edge?     -- for edge events is sigma edge data
+ ```
+
+### Types
+
+All defined Sigma types stored under /types/sigma.js, can be used as a reference for objects and parameters.
+
+## Extending sigma components
+
+ Sigma container will mount any child component with sigma instance under props.sigma. This way sigma
+ functionality may be extended indefinitely:
+
+```
+call MyCustomSigma extends React.Component {
+  constructor(props) {
+    super(props)
+    props.sigma.graph.addNode({id:"n3", label:props.label});
+  }
+}
+...
+return  <Sigma>
+      <MyCustomSigma label="Label">
+    </Sigma>
+```
+
+### Asynchronous graph data loading
+
+ Component which initializes asynchronously is supposed to mount its children only after initialized
+ (for example LoadJSON), which makes possible to build sequential composition in the pure JSX without
+ any callbacks or handlers. In the following example RelativeSize will be counted only after loading 
+ from arctic.json file.
+
+
+```
+    <Sigma>
+      <LoadJSON url="/arctic.json">
+        <RelativeSize initialSize={8}/>
+      </LoadJSON>
+    </Sigma>
+```
+
+
+
+# create-react-app regards
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
