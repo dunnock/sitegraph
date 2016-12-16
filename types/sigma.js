@@ -9,8 +9,8 @@ export type Sigma$Settings = Sigma$Settings$Renderer & Sigma$Settings$Graph
 				& Sigma$Settings$Animation;
 
 export type Sigma$Graph$Data = {
-	nodes: [SigmaNode],
-	edges: [SigmaEdge]
+	nodes: [Sigma$Node],
+	edges: [Sigma$Edge]
 };
 
 export type Sigma$Node = {
@@ -49,7 +49,30 @@ export type Neo4j$Edge = {
 	properties: KeyValueObject
 };	
 
-export type KeyValueObject = {[string]: string}
+export type Sigma$Renderer = "webgl" | "canvas";
+
+export type KeyValueObject = {[string]: string};
+
+export type Sigma$Event = {
+	data: {
+		node?: Neo4j$Node,
+		edge?: Neo4j$Edge,
+		captor: {
+			clientX: number,
+			clientY: number
+		}
+	}
+};
+
+// Following type requires EdgeShapes component
+export type Sigma$Edge$Shapes = "def" | "line" | "arrow" | "curved" | "dashed" | "dotted" | "parallel" | "tapered";
+
+// Following type requires NodeShapes component
+export type Sigma$Node$Shapes = "def" | "pacman" | "star" | "equilateral" | "cross" | "diamond" | "circle" | "square";
+
+// Following type used in Filter component
+export type Nodes$Filter = (node: Sigma$Node) => boolean;
+
 
 // TYPES DECOMPOSITION
 

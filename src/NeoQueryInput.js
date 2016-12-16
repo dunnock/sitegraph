@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Button, FormGroup, FormControl, InputGroup, HelpBlock, Well, Collapse } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, InputGroup, HelpBlock, Popover, OverlayTrigger } from 'react-bootstrap';
 
 
 type Props = {
@@ -15,7 +15,9 @@ type State = {
 
 class NeoQueryInput extends React.Component {
   state: State;
+  help: React.Element<*>;
   input: HTMLInputElement;
+
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -23,14 +25,16 @@ class NeoQueryInput extends React.Component {
       query: this.props.defaultQuery || "MATCH (n) RETURN n LIMIT 100"
     }
     this.help = <Popover id="help" title="Type in neo4j cypher query">
-                  <HelpBlock>For example <code>MATCH (n)-[r1]-(m) RETURN * LIMIT 100</code></HelpBlock>
+                  <HelpBlock>For example <code>MATCH (n:Page)-[r1]-(m) WHERE n.url CONTAINS "wikipedia.org" RETURN * LIMIT 30000</code></HelpBlock>
+
                 </Popover>
   }
   render() {
+    console.log("render NeoQueryInput")
     return <FormGroup controlId="search">
       <InputGroup>
         <InputGroup.Button>
-          <OverlayTrigger trigger="focus" placement="bottom" overlay={this.help}>
+          <OverlayTrigger trigger="click" placement="bottom" overlay={this.help}>
             <Button>?</Button>
           </OverlayTrigger>
         </InputGroup.Button>
