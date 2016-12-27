@@ -6,7 +6,6 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@kadira/storybook": "^2.21.0",
     "canvas": "^1.6.2",
     "flow-bin": "^0.35.0",
     "react-scripts": "0.8.4"
